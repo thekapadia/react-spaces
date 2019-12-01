@@ -3,7 +3,7 @@ import { getSizeString } from './Utils';
 
 export interface ISpaceContext {
 	level: number,
-	children: ISpace[],
+	children: () => ISpace[],
 	updateChildren: (children: ISpace[]) => void,
 	updateResizing: (state: boolean) => void
 }
@@ -86,14 +86,14 @@ const recalcSpaces = (spaces: ISpace[]) => {
 }
 
 export const getSpace = (context: ISpaceContext, id: string) => {
-	return context.children.find(s => s.id === id);
+	return context.children().find(s => s.id === id);
 }
 
 export const registerSpace = (context: ISpaceContext, space: ISpace) => {
-	const existing = context.children.find(t => t.id === space.id);
+	const existing = context.children().find(t => t.id === space.id);
 
 	if (!existing) {
-		context.updateChildren(recalcSpaces([ ...context.children, space ]));
+		context.updateChildren(recalcSpaces([ ...context.children(), space ]));
 		return space;
 	} 
 	else
@@ -106,15 +106,19 @@ export const registerSpace = (context: ISpaceContext, space: ISpace) => {
 }
 
 export const removeSpace = (context: ISpaceContext, id: string) => {
-	context.updateChildren(recalcSpaces(context.children.filter(t => t.id !== id)));
+	const newChildren = recalcSpaces(context.children().filter(t => t.id !== id));
+
+	console.log(newChildren.map(c => c.id).join(','));
+
+	context.updateChildren(newChildren);
 }
 
 export const updateSpace = (context: ISpaceContext, id: string, delta: Partial<ISpace>) => {
-	context.updateChildren(recalcSpaces(context.children.map(t => t.id === id ? {...t, ...delta} : t)));
+	context.updateChildren(recalcSpaces(context.children().map(t => t.id === id ? {...t, ...delta} : t)));
 }
 
 export const createSpaceContext = (
-	children: ISpace[],
+	children: () => ISpace[],
 	updateChildren: (children: ISpace[]) => void,
 	updateResizing: (state: boolean) => void,
 	parent?: ISpaceContext | null) => {

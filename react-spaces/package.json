@@ -31,12 +31,25 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@types/jest": "^24.0.15",
+    "@storybook/addon-actions": "^5.2.7",
+    "@storybook/addon-knobs": "^5.2.7",
+    "@storybook/addon-links": "^5.2.7",
+    "@storybook/addon-viewport": "^5.2.7",
+    "@storybook/addons": "^5.2.7",
+    "@storybook/react": "^5.2.7",
+    "@types/jest": "^24.0.23",
     "@types/node": "^12.6.8",
     "@types/prop-types": "^15.7.3",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "jest": "^24.9.0",
     "react": "^16.9.0",
+    "react-docgen-typescript-loader": "^3.6.0",
     "react-dom": "^16.9.0",
     "rollup": "^1.19.4",
     "rollup-plugin-babel": "^4.3.3",
@@ -47,6 +60,7 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript2": "^0.22.1",
     "rollup-watch": "^4.3.1",
+    "ts-jest": "^24.2.0",
     "tslib": "^1.10.0",
     "typescript": "^3.5.3"
   },
@@ -59,7 +73,9 @@
     "start": "rollup -c -w",
     "build": "npm run build:prod",
     "build:prod": "rollup -c",
-    "publish:alpha": "npm publish --tag alpha"
+    "publish:alpha": "npm publish --tag alpha",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "eslintConfig": {
     "extends": "react-app"

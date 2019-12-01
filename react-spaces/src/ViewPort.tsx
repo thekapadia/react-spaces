@@ -36,11 +36,11 @@ export const ViewPort : React.FC<IProps> = (props) => {
 			onTouchMove={props.onTouchMove}
 			onTouchEnd={props.onTouchEnd}>
 			<HeadStyles spaces={children} />
-			<SpaceContext.Provider value={createSpaceContext(children, setChildren, setResizing)}>
+			<SpaceContext.Provider value={createSpaceContext(() => children, setChildren, setResizing)}>
 				{props.children}
 			</SpaceContext.Provider>
 		</div>
-	)
+	);
 }
 
 ViewPort.propTypes = {
@@ -49,4 +49,4 @@ ViewPort.propTypes = {
 	top: PropTypes.number,
 	right: PropTypes.number,
 	bottom: PropTypes.number
-}
+};

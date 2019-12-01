@@ -10,7 +10,7 @@ interface IProps {
 	height?: number,
 	onMouseDown: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
 	onTouchStart: (e: React.TouchEvent<HTMLDivElement>) => void
-}
+};
 
 export const ResizeHandle : React.FC<IProps> = (props) => {
 	return (
@@ -20,10 +20,10 @@ export const ResizeHandle : React.FC<IProps> = (props) => {
 			onMouseDown={props.onMouseDown}
 			onTouchStart={props.onTouchStart} />
 	)
-}
+};
 
 ResizeHandle.propTypes = {
 	type: PropTypes.oneOf([ ResizeType.Bottom, ResizeType.Left, ResizeType.Right, ResizeType.Top ]).isRequired,
 	width: PropTypes.number,
 	height: PropTypes.number
-}
+};

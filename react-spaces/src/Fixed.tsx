@@ -11,7 +11,7 @@ interface IProps extends IReactEvents {
 	style?: React.CSSProperties,
 	width?: number,
 	height: number
-}
+};
 
 export const Fixed : React.FC<IProps> = (props) => {
 	const [ children, setChildren ] = React.useState<ISpace[]>([]);
@@ -38,16 +38,16 @@ export const Fixed : React.FC<IProps> = (props) => {
 		onTouchMove={props.onTouchMove}
 		onTouchEnd={props.onTouchEnd}>
 		<HeadStyles spaces={children} />
-		<SpaceContext.Provider value={createSpaceContext(children, setChildren, setResizing)}>
+		<SpaceContext.Provider value={createSpaceContext(() => children, setChildren, setResizing)}>
 			{props.children}
 		</SpaceContext.Provider>
 	</div>
 	)
-}
+};
 
 Fixed.propTypes = {
 	className: PropTypes.string,
 	style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 	width: PropTypes.number,
 	height: PropTypes.number.isRequired
-}
+};

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { AllProps, IState, AnchorType, ISize } from 'src/Globals/Types';
-import { initialState, isHorizontalSpace, isVerticalSpace } from 'src/Globals/Utils';
-import { ISpaceContext, updateSpace, removeSpace, registerSpace, createSpaceContext } from 'src/Globals/ISpaceContext';
-import { SpaceLayerContext, SpaceContext } from 'src/Globals/Contexts';
+import { AllProps, IState, AnchorType, ISize } from '../Globals/Types';
+import { initialState, isHorizontalSpace, isVerticalSpace } from '../Globals/Utils';
+import { ISpaceContext, updateSpace, removeSpace, registerSpace, createSpaceContext } from '../Globals/ISpaceContext';
+import { SpaceLayerContext, SpaceContext } from '../Globals/Contexts';
 import { ResizeSensor } from 'css-element-queries';
 
 export const useSpace = (props: AllProps, divElementRef: React.MutableRefObject<HTMLElement | undefined>) => {
@@ -75,7 +75,8 @@ export const useSpace = (props: AllProps, divElementRef: React.MutableRefObject<
 				right: props.anchor !== AnchorType.Left ? props.right || 0 : undefined,
 				bottom: props.anchor !== AnchorType.Top ? props.bottom || 0 : undefined,
 				width: isHorizontalSpace(props.anchor) ? props.anchorSize || 0 : props.width,
-				height: isVerticalSpace(props.anchor) ? props.anchorSize || 0 : props.height
+				height: isVerticalSpace(props.anchor) ? props.anchorSize || 0 : props.height,
+				anchorType: props.anchor
 			}
 		);
 	}, [ props.left, props.top, props.bottom, props.right, props.width, props.height, props.anchor ]);
@@ -120,15 +121,15 @@ export const useSpace = (props: AllProps, divElementRef: React.MutableRefObject<
 		{
 			updateCurrentSize();
 		}
-	})
+	});
 
-	onRemove.current = React.useCallback(() => {
+	onRemove.current = () => {
 		removeSpace(parentContext, state.id);
-	}, []);
+	};
 
 	const currentContext = 
 		createSpaceContext(
-			state.children, 
+			() => state.children, 
 			(children) => setState({ children: children }),
 			(resizing) => setState({ resizing: resizing }),
 			parentContext
@@ -141,4 +142,4 @@ export const useSpace = (props: AllProps, divElementRef: React.MutableRefObject<
 		currentSize: currentSize || { width: 0, height: 0 },
 		resizing: state.resizing
 	} 
-}
+};

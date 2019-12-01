@@ -273,7 +273,7 @@ export const SpaceInternal : React.FC<AllProps> = React.memo((props) => {
 					onTouchEnd: props.onTouchEnd
 				},
 				<>
-					{ !USE_INLINESTYLES && <HeadStyles spaces={currentContext.children} /> }
+					{ !USE_INLINESTYLES && <HeadStyles spaces={currentContext.children()} /> }
 					{ resizeHandle }
 					<div 
 						className={innerClasses.join(' ')} 
@@ -303,7 +303,7 @@ export const SpaceInternal : React.FC<AllProps> = React.memo((props) => {
 					onTouchEnd: props.onTouchEnd
 				},
 				<>
-					{ !USE_INLINESTYLES && <HeadStyles spaces={currentContext.children} /> }
+					{ !USE_INLINESTYLES && <HeadStyles spaces={currentContext.children()} /> }
 					{ resizeHandle }
 					<SpaceContext.Provider value={currentContext}>
 					<SpaceInfoContext.Provider value={{ width: Math.floor(currentSize.width), height: Math.floor(currentSize.height) }}>
